@@ -7,8 +7,8 @@ def stream_users_in_batches(batch_size):
     try:
         connection = connect_to_prodev()
         cursor = connection.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM user_data")
 
-        cursor.execute("SELECT * FROM user_data;")
         while True:
             rows = cursor.fetchmany(batch_size)
             if not rows:
@@ -17,9 +17,9 @@ def stream_users_in_batches(batch_size):
 
         cursor.close()
         connection.close()
-
     except Error as e:
         print(f"Database error: {e}")
+        yield from []
 
 def batch_processing(batch_size):
     for batch in stream_users_in_batches(batch_size):
