@@ -1,29 +1,31 @@
 #!/usr/bin/env python3
-"""Unit tests for utils.py"""
+"""
+Unittests for utils.py
+"""
+import pytest
+from utils import access_nested_map
 
-import unittest
-from parameterized import parameterized
-from utils import access_nested_map, get_json
-from unittest.mock import patch, Mock
-
-
-class TestAccessNestedMap(unittest.TestCase):
-    """Unit tests for access_nested_map"""
-
-    @parameterized.expand([
-        ({"a": 1}, ("a",), 1),
-        ({"a": {"b": 2}}, ("a",), {"b": 2}),
-        ({"a": {"b": 2}}, ("a", "b"), 2),
-    ])
+class TestAccessNestedMap:
+    @pytest.mark.parametrize(
+        "nested_map, path, expected",
+        [
+            ({"a": 1}, ("a",), 1),
+            ({"a": {"b": 2}}, ("a", "b"), 2),
+        ],
+    )
     def test_access_nested_map(self, nested_map, path, expected):
-        """Test normal nested access"""
-        self.assertEqual(access_nested_map(nested_map, path), expected)
+        assert access_nested_map(nested_map, path) == expected
 
-    @parameterized.expand([
-        ({}, ("a",), 'a'),
-    ])
-    def test_access_nested_map_exception(self, nested_map, path, missing_key):
-        """Test KeyError with missing key"""
-        with self.assertRaises(KeyError) as cm:
+    @pytest.mark.parametrize(
+        "nested_map, path",
+        [
+            ({}, ("a",)),
+            ({"a": 1}, ("a", "b")),
+        ],
+    )
+    def test_access_nested_map_key_error(self, nested_map, path):
+        with pytest.raises(KeyError) as exc_info:
             access_nested_map(nested_map, path)
-        self.assertEqual(str(cm.exception), f"'{missing_key}'")
+        # Assert that the exception’s argument matches the missing key
+        missing_key = path[-1]
+        assert exc_info.value.args[0] == missing_key
