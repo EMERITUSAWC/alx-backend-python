@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-"""Unit tests for utils.py"""
-
-import unittest
-from parameterized import parameterized
-from utils import access_nested_map, get_json
-from unittest.mock import patch, Mock
-
-
 class TestAccessNestedMap(unittest.TestCase):
     """Unit tests for access_nested_map"""
 
@@ -23,7 +14,7 @@ class TestAccessNestedMap(unittest.TestCase):
         ({}, ("a",), 'a'),
     ])
     def test_access_nested_map_exception(self, nested_map, path, missing_key):
-        """Test KeyError with missing key"""
-        with self.assertRaises(KeyError) as cm:
+        """Test KeyError with missing keys"""
+        with self.assertRaises(KeyError) as context:
             access_nested_map(nested_map, path)
-        self.assertEqual(str(cm.exception), f"'{missing_key}'")
+        self.assertEqual(str(context.exception), f"'{missing_key}'")
