@@ -1,10 +1,9 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import MessageViewSet
+from django.urls import path
+from django.http import HttpResponse
 
-router = DefaultRouter()
-router.register(r'messages', MessageViewSet)
+def messages_view(request):
+    return HttpResponse("Chat Messages Endpoint")
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('messages/', messages_view, name='messages'),
 ]

@@ -1,33 +1,23 @@
 """
 Django settings for Django-Middleware-0x03 project.
-For ALX: Understanding Middlewares
 """
 
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@r&v%!%+q1x^l+u@fz8w7h@q9v3y+3zj6w+o^r^j_9g^t7m#x%'
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = 'django-insecure-your-secret-key-here'
 DEBUG = True
-
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-# Application definition
-
 INSTALLED_APPS = [
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'chats',
-
+    'chats', #
 ]
 
 MIDDLEWARE = [
@@ -39,7 +29,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # === CUSTOM MIDDLEWARES (ALX TASKS) ===
+    # === ALX MIDDLEWARES ===
     'chats.middleware.RequestLoggingMiddleware',
     'chats.middleware.RestrictAccessByTimeMiddleware',
     'chats.middleware.OffensiveLanguageMiddleware',
@@ -47,6 +37,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'messaging_app.urls'
+WSGI_APPLICATION = 'messaging_app.wsgi.application'
 
 TEMPLATES = [
     {
@@ -64,9 +55,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'messaging_app.wsgi.application'
-
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -74,7 +62,6 @@ DATABASES = {
     }
 }
 
-# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -90,14 +77,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
