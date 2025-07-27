@@ -1,4 +1,3 @@
-cat > my_app/serializers.py << 'EOL'
 from rest_framework import serializers
 from datetime import date
 from .models import Book

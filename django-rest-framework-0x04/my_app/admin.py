@@ -1,4 +1,4 @@
-cat > my_app/admin.py << 'EOF'
+
 from datetime import date
 from django.contrib import admin
 from .models import Book
@@ -25,4 +25,3 @@ class BookAdmin(admin.ModelAdmin):
         return None
 
     days_since_published.short_description = 'Days Published'
-EOF
