@@ -1,4 +1,23 @@
-venv/
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-.env
+*.py[cod]
+*$py.class
+
+# Django
+db.sqlite3
+*.sqlite3
+media/
+
+# Virtual Environment
+venv/
+env/
+virtualenv/
+
+# IDE
+.vscode/
+*.swp
+*~
+.DS_Store
+
+# Coverage
+.coverage
