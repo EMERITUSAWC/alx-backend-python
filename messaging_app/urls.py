@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 """
 URL configuration for messaging_app project.
 
@@ -20,3 +21,15 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
+=======
+from django.contrib import admin
+from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/', include('chats.urls')),
+]
+>>>>>>> cb93cd83c8b708054bc59192c44a67eb0c551f8a
