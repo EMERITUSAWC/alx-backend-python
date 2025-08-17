@@ -1,0 +1,25 @@
+echo "#!/bin/bash
+
+# Apply Blue deployment
+kubectl apply -f blue_deployment.yaml
+
+# Apply Green deployment
+kubectl apply -f green_deployment.yaml
+
+# Apply Service
+kubectl apply -f kubeservice.yaml
+
+# Wait for pods to be ready
+kubectl wait --for=condition=ready pod -l app=messaging-app --timeout=120s
+
+# Get pod names
+BLUE_POD=\$(kubectl get pods -l version=blue -o jsonpath=\"{.items[0].metadata.name}\")
+GREEN_POD=\$(kubectl get pods -l version=green -o jsonpath=\"{.items[0].metadata.name}\")
+
+# Show logs for verification
+echo \"=== Blue Pod Logs ===\"
+kubectl logs \$BLUE_POD
+
+echo \"=== Green Pod Logs ===\"
+kubectl logs \$GREEN_POD" > kubctl-0x02
+
