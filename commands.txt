@@ -1,4 +1,0 @@
-echo "kubectl apply -f ingress.yaml
-kubectl get ingress
-kubectl describe ingress messaging-app-ingress" > commands.txt
-
