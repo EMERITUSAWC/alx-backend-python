@@ -1,3 +1,9 @@
+# (paste the content, save and exit)
+
+# Stage and commit
+git add messaging_app/Jenkinsfile
+git commit -m "Add Jenkins pipeline script for Task 0"
+git push origin jenkins-task0
 pipeline {
     agent any
 
