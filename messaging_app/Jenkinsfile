@@ -2,20 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/EMERITUSAWC/alx-backend-python.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install dependencies') {
             steps {
                 sh '''
                 python3 -m venv venv
                 . venv/bin/activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
+                pip install -r messaging_app/requirements.txt
                 '''
             }
         }
@@ -24,12 +23,12 @@ pipeline {
             steps {
                 sh '''
                 . venv/bin/activate
-                pytest --maxfail=1 --disable-warnings -q --junitxml=test-results.xml
+                pytest --junitxml=report.xml
                 '''
             }
             post {
                 always {
-                    junit 'test-results.xml'
+                    junit 'report.xml'
                 }
             }
         }
