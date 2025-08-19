@@ -1,36 +1,24 @@
-# (paste the content, save and exit)
-
-# Stage and commit
-git add messaging_app/Jenkinsfile
-git commit -m "Add Jenkins pipeline script for Task 0"
-git push origin jenkins-task0
 pipeline {
     agent any
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
+                // Pull code from GitHub
+                git branch: 'jenkins-task0',
                     url: 'https://github.com/EMERITUSAWC/alx-backend-python.git'
             }
         }
 
-        stage('Install dependencies') {
+        stage('Install Dependencies') {
             steps {
-                sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install -r messaging_app/requirements.txt
-                '''
+                sh 'pip install -r requirements.txt'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh '''
-                . venv/bin/activate
-                pytest --junitxml=report.xml
-                '''
+                sh 'pytest --maxfail=1 --disable-warnings -q --junitxml=report.xml'
             }
             post {
                 always {
